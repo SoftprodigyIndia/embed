@@ -1,13 +1,13 @@
 gateways = [
     "https://ipfs.io",
-    "https://video.dtube.network/"
+    "https://display1.galaxii.io/"
 ]
 steemAPI = [
     "https://api.steemit.com/",
     "https://steemd.minnowsupportproject.org/",
     "https://anyx.io/",
 ]
-shortTermGw = "https://video.dtube.top"
+shortTermGw = "https://display1.galaxii.io"
 player = null
 itLoaded = false
 timeout = 1500
@@ -44,9 +44,9 @@ function findInShortTerm(hash, cb) {
 function findVideo(retries = 3) {
     if (videoPermlink == 'live') {
         document.addEventListener("DOMContentLoaded", function() {
-            createLiveStream(autoplay, nobranding, null) 
+            createLiveStream(autoplay, nobranding, null)
         });
-               
+
         return
     }
     var api = steemAPI[(3-retries)%steemAPI.length]
@@ -69,21 +69,21 @@ function findVideo(retries = 3) {
             createLiveStream(autoplay, nobranding, b)
         } else {
             var qualities = generateQualities(a)
-            
+
             findInShortTerm(qualities[0].hash, function(isAvail) {
                 addQualitiesSource(qualities, (isAvail ? shortTermGw : gateways[0]))
-    
+
                 // start the player
                 createPlayer(a.info.snaphash, autoplay, nobranding, qualities, a.info.spritehash, a.info.duration, a.content.subtitles)
             })
-        } 
+        }
     });
     timeout *= 2
 }
 
 function createPlayer(posterHash, autoplay, branding, qualities, sprite, duration, subtitles) {
     var c = document.createElement("video");
-    c.poster = 'https://snap1.d.tube/ipfs/'+posterHash;
+    c.poster = 'https://display1.galaxii.io/ipfs/'+posterHash;
     c.controls = true;
     c.autoplay = autoplay;
     c.id = "player";
@@ -111,7 +111,7 @@ function createPlayer(posterHash, autoplay, branding, qualities, sprite, duratio
     if(persistedQuality !== null && hasQuality(persistedQuality, qualities)){
       defaultQuality = persistedQuality
     }
-    
+
     player = videojs("player", {
         inactivityTimeout: 1000,
         sourceOrder: true,
@@ -185,15 +185,15 @@ function createPlayer(posterHash, autoplay, branding, qualities, sprite, duratio
                     srclang: subtitles[i].lang,
                     label: subtitles[i].lang
                 })
-    
+
             }
         }
     });
 
     player.brand({
         branding: !JSON.parse(nobranding),
-        title: "Watch on DTube",
-        destination: "http://d.tube/#!/v/" + videoAuthor + '/' + videoPermlink,
+        title: "Watch on Galaxii",
+        destination: "http://galaxii.io/#!/v/" + videoAuthor + '/' + videoPermlink,
         destinationTarget: "_blank"
     })
 }
@@ -213,7 +213,7 @@ function createLiveStream(autoplay, branding, content) {
     });
 
     var video = document.body.appendChild(c);
-    
+
     player = videojs("player", {
         inactivityTimeout: 1000,
         techOrder: ["html5"],
@@ -273,16 +273,16 @@ function createLiveStream(autoplay, branding, content) {
                     videosrc = 'https://video.dtube.top/streams/'+data[0][0].filePath
                     player.src(videosrc)
                 })
-                
+
             } else {
                 console.log('Error stream API')
             }
         };
-        
+
         request.onerror = function() {
             console.log('Error stream API')
         };
-        
+
         request.send();
     } else {
         var livesrc = 'https://stream.dtube.top:4433/hls/normal%2b'+videoAuthor+'/index.m3u8'
@@ -301,8 +301,8 @@ function createLiveStream(autoplay, branding, content) {
 
     player.brand({
         branding: !JSON.parse(nobranding),
-        title: "Watch on DTube",
-        destination: "http://d.tube/#!/v/" + videoAuthor + '/' + videoPermlink,
+        title: "Watch on Galaxii",
+        destination: "http://galaxii.io/#!/v/" + videoAuthor + '/' + videoPermlink,
         destinationTarget: "_blank"
     })
 }
@@ -392,7 +392,7 @@ function addQualitiesSource(qualities, gateway) {
 }
 
 function hasQuality(label, qualities) {
-    for (let i = 0; i < qualities.length; i++) 
+    for (let i = 0; i < qualities.length; i++)
         if (qualities[i].label == label) return true
     return false
 }
