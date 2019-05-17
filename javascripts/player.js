@@ -1,12 +1,12 @@
 gateways = [
-    "https://ipfs.io"
+    "https://display1.galaxii.io"
 ]
 steemAPI = [
     "https://api.steemit.com/",
     "https://steemd.minnowsupportproject.org/",
     "https://anyx.io/",
 ]
-shortTermGw = "https://display1.galaxii.io"
+shortTermGw = "https://ipfs.io"
 player = null
 itLoaded = false
 timeout = 1500
