@@ -1,6 +1,5 @@
 gateways = [
-    "https://ipfs.io",
-    "https://display1.galaxii.io/"
+    "https://ipfs.io"
 ]
 steemAPI = [
     "https://api.steemit.com/",
