@@ -37,7 +37,10 @@ function findInShortTerm(hash, cb) {
                 cb(true)
             } else cb()
         }
-    }
+    };
+    request.ontimeout = function (e) {
+      cb()
+    };
     request.send();
 }
 
