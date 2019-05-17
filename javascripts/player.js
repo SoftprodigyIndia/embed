@@ -1,12 +1,12 @@
 gateways = [
-    "https://display1.galaxii.io"
+    "https://ipfs.io"
 ]
 steemAPI = [
     "https://api.steemit.com/",
     "https://steemd.minnowsupportproject.org/",
     "https://anyx.io/",
 ]
-shortTermGw = "https://ipfs.io"
+shortTermGw = "https://display1.galaxii.io"
 player = null
 itLoaded = false
 timeout = 1500
@@ -28,6 +28,7 @@ function findInShortTerm(hash, cb) {
     request.onerror = function(e) {
         console.log('Error: ' + url)
     }
+    request.timeout = 5000;
     request.onreadystatechange = function() {
         if (request.readyState === request.HEADERS_RECEIVED) {
             if (request.status === 200) {
